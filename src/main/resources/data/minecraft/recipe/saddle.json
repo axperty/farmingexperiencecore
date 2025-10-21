@@ -1,16 +1,20 @@
 {
   "type": "minecraft:crafting_shaped",
+  "category": "misc",
   "pattern": [
-    "I I",
-    "III",
-    "I I"
+    "   ",
+    " L ",
+    "LIL"
   ],
   "key": {
+    "L": {
+      "item": "minecraft:leather"
+    },
     "I": {
       "item": "minecraft:iron_ingot"
     }
   },
   "result": {
-    "item": "minecraft:iron_horse_armor"
+    "id": "minecraft:saddle"
   }
 }
