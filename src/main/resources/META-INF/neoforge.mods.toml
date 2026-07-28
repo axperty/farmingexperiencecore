@@ -1,17 +1,17 @@
 modLoader="javafml"
 loaderVersion="${loader_version_range}"
-issueTrackerURL = "https://github.com/axperty/farmingexperiencetweaks/issues"
+issueTrackerURL = "https://github.com/axperty/farmingexperience/issues"
 license="${mod_license}"
 
 [[mods]]
 modId="${mod_id}"
 version="${mod_version}"
 displayName="${mod_name}"
-displayURL = "https://github.com/axperty/farmingexperiencetweaks"
+displayURL = "https://github.com/axperty/farmingexperience"
 logoFile="logo.png"
 logoBlur = false
 authors="${mod_authors}"
-description="Tweaks for the Farming Experience modpack."
+description="${mod_description}"
 
 [[dependencies.${mod_id}]]
 modId="neoforge"

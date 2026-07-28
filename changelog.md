@@ -2,12 +2,12 @@
 
 ***
 
-### ✨ What's New:
+## ✨ What's New:
 
 - Updated panorama.
+- Removed Minecraft and Farming Experience textures from `assets/minecraft/textures/gui/title`.
 
 ***
 
-### ❤️ Support:
-
-- Support this mod by [creating your own server](https://url-shortener.curseforge.com/K2v5Q) or [donating via Feed the Kitty](https://axperty.netlify.app/).
+## ❤️ Love the Modpack? Support it!
+- If you're enjoying your time with Farming Experience and want to help keep it growing, consider leaving a small donation via [PayPal](https://paypal.me/kevgelhorn). Every bit helps and is truly appreciated!
