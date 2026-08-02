@@ -1,15 +1,14 @@
 modLoader="javafml"
 loaderVersion="${loader_version_range}"
-issueTrackerURL = "https://github.com/axperty/farmingexperience/issues"
+issueTrackerURL = "https://github.com/axperty/farmingexperiencecore/issues"
 license="${mod_license}"
 
 [[mods]]
 modId="${mod_id}"
 version="${mod_version}"
 displayName="${mod_name}"
-displayURL = "https://github.com/axperty/farmingexperience"
+displayURL = "https://github.com/axperty/farmingexperiencecore"
 logoFile="logo.png"
-logoBlur = false
 authors="${mod_authors}"
 description="${mod_description}"
 
