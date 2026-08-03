@@ -5,6 +5,7 @@ import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.ai.util.DefaultRandomPos;
 import net.minecraft.world.entity.monster.Zombie;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LightLayer;
 import net.minecraft.world.phys.Vec3;
 
 import java.util.EnumSet;
@@ -30,7 +31,7 @@ public class ZombieAvoidLightGoal extends Goal {
         Level level = this.zombie.level();
         BlockPos pos = this.zombie.blockPosition();
 
-        if (level.getBrightness(net.minecraft.world.level.LightLayer.BLOCK, pos) > 0) {
+        if (level.getBrightness(LightLayer.BLOCK, pos) > 0) {
             Vec3 fleePos = getDarkPos(level, pos);
             if (fleePos != null) {
                 this.targetX = fleePos.x;
@@ -43,7 +44,7 @@ public class ZombieAvoidLightGoal extends Goal {
         }
 
         var target = this.zombie.getTarget();
-        if (target != null && level.getBrightness(net.minecraft.world.level.LightLayer.BLOCK, target.blockPosition()) > 0) {
+        if (target != null && level.getBrightness(LightLayer.BLOCK, target.blockPosition()) > 0) {
             this.zombie.setTarget(null);
         }
         
@@ -52,7 +53,7 @@ public class ZombieAvoidLightGoal extends Goal {
 
     @Override
     public boolean canContinueToUse() {
-        return !this.zombie.getNavigation().isDone() && this.zombie.level().getBrightness(net.minecraft.world.level.LightLayer.BLOCK, this.zombie.blockPosition()) > 0;
+        return !this.zombie.getNavigation().isDone() && this.zombie.level().getBrightness(LightLayer.BLOCK, this.zombie.blockPosition()) > 0;
     }
 
     @Override
@@ -65,7 +66,7 @@ public class ZombieAvoidLightGoal extends Goal {
             Vec3 pos = DefaultRandomPos.getPos(this.zombie, 10, 7);
             if (pos != null) {
                 BlockPos bPos = BlockPos.containing(pos);
-                if (level.getBrightness(net.minecraft.world.level.LightLayer.BLOCK, bPos) == 0) {
+                if (level.getBrightness(LightLayer.BLOCK, bPos) == 0) {
                     return pos;
                 }
             }

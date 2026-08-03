@@ -4,9 +4,18 @@
 
 ## ✨ What's New:
 
-- The player will not lose their inventory items on death, instead, they will lose hearts that can be recovered by eating golden apples. Inspired by the [Matcha Flavoured](https://modrinth.com/datapack/matcha-flavoured) datapack by [klei_wright](https://modrinth.com/user/klei_wright).
+Some features in this new version have been inspired from the [Matcha Flavoured](https://modrinth.com/datapack/matcha-flavoured) datapack by [klei_wright](https://modrinth.com/user/klei_wright).
+
+- The player will not lose their inventory items on death, instead, they will lose hearts that can be recovered by eating golden apples.
 - Iron golems and phantoms will not spawn anymore.
-- Zombies are now scared of any light source.
+- Zombies are scared of any light sources and will run away from them.
+- Zombies, skeletons, and endermans spawn in the overworld.
+- Creepers and spiders spawn in caves.
+- All monsters have less health.
+- Untamed cats don't run away from the player.
+- TNT can be thrown when the player has flint and steel and TNT blocks on their hands.
+- Minecarts can be placed without using rails.
+- Tools and weapons can be always repaired.
 
 ## 🛠️ Minor Changes:
 

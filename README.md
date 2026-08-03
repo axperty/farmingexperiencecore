@@ -16,8 +16,15 @@ Some functionality was taken from the [Matcha Flavoured](https://modrinth.com/da
 ### Features
 
 - When the player dies, they won't lose their inventory, instead they will lose a heart for every time they die with the possibility to recover hearts by eating golden apples.
-- Zombies are scared of any light sources.
 - Iron golems and phantoms don't spawn.
+- Zombies are scared of any light sources and will run away from them.
+- Zombies, skeletons, and endermans spawn in the overworld.
+- Creepers and spiders spawn in caves.
+- All monsters have less health.
+- Untamed cats don't run away from the player.
+- TNT can be thrown when the player has flint and steel and TNT blocks on their hands.
+- Minecarts can be placed without using rails.
+- Tools and weapons can be always repaired.
 - Changes the panorama background.
 - Adds more recipes and advancements.
 - Tweaks different Minecraft texture assets.

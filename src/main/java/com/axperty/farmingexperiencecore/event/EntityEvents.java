@@ -8,6 +8,8 @@ import net.minecraft.world.entity.monster.Zombie;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.entity.EntityJoinLevelEvent;
+import net.minecraft.world.entity.animal.Cat;
+import net.minecraft.world.entity.ai.goal.AvoidEntityGoal;
 
 @EventBusSubscriber(modid = FarmingExperienceCore.MODID)
 
@@ -28,6 +30,10 @@ public class EntityEvents {
 
         if (event.getEntity() instanceof Zombie zombie) {
             zombie.goalSelector.addGoal(0, new ZombieAvoidLightGoal(zombie, 1.2));
+        }
+
+        if (event.getEntity() instanceof Cat cat) {
+            cat.goalSelector.removeAllGoals(goal -> goal instanceof AvoidEntityGoal);
         }
     }
 }

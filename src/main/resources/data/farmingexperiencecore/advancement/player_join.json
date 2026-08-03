@@ -1,0 +1,10 @@
+{
+  "criteria": {
+    "tick": {
+      "trigger": "minecraft:tick"
+    }
+  },
+  "rewards": {
+    "function": "farmingexperiencecore:player_join"
+  }
+}

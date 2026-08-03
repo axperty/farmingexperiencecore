@@ -1,11 +1,13 @@
 package com.axperty.farmingexperiencecore;
 
+import com.mojang.logging.LogUtils;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.loading.FMLPaths;
 
 import java.io.File;
 import java.io.FileReader;
+import org.slf4j.Logger;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
@@ -15,10 +17,12 @@ import com.google.gson.JsonObject;
 @Mod(FarmingExperienceCore.MODID)
 public class FarmingExperienceCore {
     public static final String MODID = "farmingexperiencecore";
+    private static final Logger LOGGER = LogUtils.getLogger();
     public static boolean isModpackInstalled = true;
 
     public FarmingExperienceCore(IEventBus modEventBus) {
         checkModpackInstallation();
+        LOGGER.info("Farming Experience Core loaded");
     }
 
     private void checkModpackInstallation() {

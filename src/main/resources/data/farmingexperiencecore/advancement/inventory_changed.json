@@ -1,0 +1,24 @@
+{
+  "criteria": {
+    "inventory_changed": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "predicates": {
+              "minecraft:repair_cost": {}
+            }
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "inventory_changed"
+    ]
+  ],
+  "rewards": {
+    "function": "farmingexperiencecore:reset_breakable_repair_cost"
+  }
+}

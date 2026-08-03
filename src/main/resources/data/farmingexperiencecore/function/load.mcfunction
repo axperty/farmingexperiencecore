@@ -1,0 +1,2 @@
+gamerule doDaylightCycle false
+function farmingexperiencecore:day_cycle_extender
