@@ -15,6 +15,8 @@ import net.neoforged.neoforge.event.entity.living.LivingEntityUseItemEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerEvent;
 import net.neoforged.neoforge.event.server.ServerStartedEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
+import net.neoforged.neoforge.event.tick.PlayerTickEvent;
+import com.axperty.farmingexperiencecore.attachment.ModAttachments;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.entity.item.PrimedTnt;
 import net.minecraft.world.phys.Vec3;
@@ -36,6 +38,20 @@ public class PlayerEvents {
     @SubscribeEvent
     public static void onServerStarted(ServerStartedEvent event) {
         event.getServer().getGameRules().getRule(GameRules.RULE_KEEPINVENTORY).set(true, event.getServer());
+    }
+
+    @SubscribeEvent
+    public static void onPlayerTick(PlayerTickEvent.Post event) {
+        Player player = event.getEntity();
+        if (!player.level().isClientSide()) {
+            int dashCooldown = player.getData(ModAttachments.DASH_COOLDOWN);
+            if (dashCooldown > 0) {
+                player.setData(ModAttachments.DASH_COOLDOWN, dashCooldown - 1);
+            }
+            if (player.onGround()) {
+                player.setData(ModAttachments.JUMP_COUNT, 0);
+            }
+        }
     }
 
     // Makes the player lose a heart if they die and gives it back if the player eats a golden apple.

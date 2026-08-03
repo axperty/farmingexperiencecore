@@ -1,5 +1,6 @@
 package com.axperty.farmingexperiencecore;
 
+import com.axperty.farmingexperiencecore.attachment.ModAttachments;
 import com.mojang.logging.LogUtils;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.common.Mod;
@@ -22,6 +23,7 @@ public class FarmingExperienceCore {
 
     public FarmingExperienceCore(IEventBus modEventBus) {
         checkModpackInstallation();
+        ModAttachments.ATTACHMENT_TYPES.register(modEventBus);
         LOGGER.info("Farming Experience Core loaded");
     }
 
