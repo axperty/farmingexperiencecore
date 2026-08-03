@@ -2,6 +2,7 @@
   "replace": false,
   "values": [
     "farmingexperiencecore:multi_jump",
-    "farmingexperiencecore:dash"
+    "farmingexperiencecore:dash",
+    "farmingexperiencecore:smash"
   ]
 }

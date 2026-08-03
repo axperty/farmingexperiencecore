@@ -24,7 +24,9 @@ Some functionality was taken from the [Matcha Flavoured](https://modrinth.com/da
 - Untamed cats don't run away from the player.
 - TNT can be thrown when the player has flint and steel and TNT blocks on their hands.
 - Minecarts can be placed without using rails.
+- Multijump, dash, and smash enchantments.
 - Tools and weapons can be always repaired.
+- Days and nights are longer.
 - Changes the panorama background.
 - Adds more recipes and advancements.
 - Tweaks different Minecraft texture assets.

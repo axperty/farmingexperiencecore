@@ -15,9 +15,9 @@ Some features in this new version have been inspired from the [Matcha Flavoured]
 - Untamed cats don't run away from the player.
 - TNT can be thrown when the player has flint and steel and TNT blocks on their hands.
 - Minecarts can be placed without using rails.
-- Multi-jump enchantment that can be added to boots, allowing the player to jump twice or three times.
-- Dash enchantment that can be added to boots, allowing the player to move forwards quickly.
+- Multijump, dash, and smash enchantments.
 - Tools and weapons can be always repaired.
+- Days and nights are longer.
 
 ## 🛠️ Minor Changes:
 
