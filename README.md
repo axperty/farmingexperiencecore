@@ -9,14 +9,12 @@
 
 ### Overview
 
-This is a mod exclusively for Farming Experience, which modifies different settings of the game to make the progression slower and more comfortable.
-
-Some functionality was taken from the [Matcha Flavoured](https://modrinth.com/datapack/matcha-flavoured) datapack by [klei_wright](https://modrinth.com/user/klei_wright) and modified to work with Farming Experience.
+Farming Experience Core is a mod exclusively for the [Farming Experience](https://www.curseforge.com/minecraft/modpacks/farming-experience) modpack, which adds many new quality of life features and changes to the game, making the progression slower and more comfortable.
 
 ### Features
 
 - When the player dies, they won't lose their inventory, instead they will lose a heart for every time they die with the possibility to recover hearts by eating golden apples.
-- Iron golems and phantoms don't spawn.
+- Phantoms don't spawn.
 - Zombies are scared of any light sources and will run away from them.
 - Zombies, skeletons, and endermans spawn in the overworld.
 - Creepers and spiders spawn in caves.
@@ -31,3 +29,8 @@ Some functionality was taken from the [Matcha Flavoured](https://modrinth.com/da
 - Adds more recipes and advancements.
 - Tweaks different Minecraft texture assets.
 - Detects if the player is running the modpack.
+- Mobs only drop loot and XP when killed by a player (disables passive mob farms).
+- Endermen drop significantly less XP to discourage enderman XP farms.
+- Configuration file and configuration screen to edit whatever the player wants with support for Cloth Config API.
+
+Some functionality was taken from the [Matcha Flavoured](https://modrinth.com/datapack/matcha-flavoured) datapack by [klei_wright](https://modrinth.com/user/klei_wright) and modified to work with Farming Experience.
