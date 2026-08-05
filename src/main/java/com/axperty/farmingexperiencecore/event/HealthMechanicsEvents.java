@@ -9,6 +9,8 @@ import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.entity.living.LivingEntityUseItemEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerEvent;
 
+// Makes golden apples give extra max health and makes you lose max health when you die.
+
 @EventBusSubscriber(modid = FarmingExperienceCore.MODID)
 public class HealthMechanicsEvents {
 

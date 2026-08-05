@@ -20,6 +20,8 @@ import net.neoforged.neoforge.event.entity.living.LivingDamageEvent;
 import net.neoforged.neoforge.event.entity.living.LivingFallEvent;
 import net.neoforged.neoforge.event.tick.PlayerTickEvent;
 
+// Makes enchantments work.
+
 @EventBusSubscriber(modid = FarmingExperienceCore.MODID)
 public class EnchantmentEvents {
 

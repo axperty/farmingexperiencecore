@@ -6,6 +6,8 @@ import net.neoforged.neoforge.registries.DeferredRegister;
 import net.neoforged.neoforge.registries.NeoForgeRegistries;
 import java.util.function.Supplier;
 
+// Variables for jump count, dash cooldown, and extra hearts.
+
 public class ModAttachments {
     public static final DeferredRegister<AttachmentType<?>> ATTACHMENT_TYPES = DeferredRegister.create(NeoForgeRegistries.Keys.ATTACHMENT_TYPES, FarmingExperienceCore.MODID);
 

@@ -6,6 +6,8 @@ import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.ResourceLocation;
 
+// Makes the server know when the client wants to dash.
+
 public record DashPayload() implements CustomPacketPayload {
     public static final CustomPacketPayload.Type<DashPayload> TYPE = new CustomPacketPayload.Type<>(ResourceLocation.fromNamespaceAndPath(FarmingExperienceCore.MODID, "dash"));
     public static final StreamCodec<ByteBuf, DashPayload> STREAM_CODEC = StreamCodec.unit(new DashPayload());

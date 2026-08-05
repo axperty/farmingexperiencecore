@@ -26,6 +26,8 @@ import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 import net.neoforged.neoforge.event.server.ServerStartedEvent;
 
+// Adds minecart placing, keep inventory when player dies, and throw TNT when right click.
+
 @EventBusSubscriber(modid = FarmingExperienceCore.MODID)
 public class MiscInteractionEvents {
 

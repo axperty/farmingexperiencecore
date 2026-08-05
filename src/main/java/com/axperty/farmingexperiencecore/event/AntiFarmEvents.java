@@ -9,6 +9,8 @@ import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.entity.living.LivingDropsEvent;
 import net.neoforged.neoforge.event.entity.living.LivingExperienceDropEvent;
 
+// Makes mobs drop their items only when killed by a player and makes Enderman drop 2 XP.
+
 @EventBusSubscriber(modid = FarmingExperienceCore.MODID)
 public class AntiFarmEvents {
 

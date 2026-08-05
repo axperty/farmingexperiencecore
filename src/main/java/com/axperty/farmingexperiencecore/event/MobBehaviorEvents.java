@@ -22,12 +22,14 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.entity.EntityJoinLevelEvent;
 
+// Makes modifications to mob health, speed, and drop chances.
+
 @EventBusSubscriber(modid = FarmingExperienceCore.MODID)
 public class MobBehaviorEvents {
 
     @SubscribeEvent
     public static void onEntityJoin(EntityJoinLevelEvent event) {
-        if (event.getEntity() instanceof IronGolem || event.getEntity() instanceof Phantom) {
+        if (event.getEntity() instanceof Phantom) {
             event.setCanceled(true);
             return;
         }

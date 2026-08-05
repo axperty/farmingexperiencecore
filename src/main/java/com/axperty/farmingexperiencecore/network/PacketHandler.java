@@ -19,6 +19,8 @@ import net.neoforged.neoforge.network.registration.PayloadRegistrar;
 
 import java.util.Optional;
 
+// Makes the client send packets to the server so the server can handle the packets.
+
 @EventBusSubscriber(modid = FarmingExperienceCore.MODID, bus = EventBusSubscriber.Bus.MOD)
 public class PacketHandler {
 
@@ -57,7 +59,7 @@ public class PacketHandler {
             int cooldown = player.getData(ModAttachments.DASH_COOLDOWN);
             if (cooldown <= 0) {
                 player.causeFoodExhaustion(0.5f);
-                player.setData(ModAttachments.DASH_COOLDOWN, 40); // 2 seconds cooldown
+                player.setData(ModAttachments.DASH_COOLDOWN, 100); // 2 seconds cooldown
             }
         }
     }

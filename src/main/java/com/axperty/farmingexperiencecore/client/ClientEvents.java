@@ -24,6 +24,8 @@ import net.neoforged.neoforge.network.PacketDistributor;
 
 import java.util.Optional;
 
+// Makes dash and multijump work, also handles sending packets to the server.
+
 @EventBusSubscriber(modid = FarmingExperienceCore.MODID, bus = EventBusSubscriber.Bus.GAME, value = Dist.CLIENT)
 public class ClientEvents {
 
