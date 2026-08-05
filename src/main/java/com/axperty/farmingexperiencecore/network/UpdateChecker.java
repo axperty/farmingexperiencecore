@@ -1,6 +1,10 @@
 package com.axperty.farmingexperiencecore.network;
 
 import com.axperty.farmingexperiencecore.FarmingExperienceCore;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.mojang.logging.LogUtils;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.ClickEvent;
@@ -24,8 +28,9 @@ import java.time.Duration;
 @EventBusSubscriber(modid = FarmingExperienceCore.MODID)
 public class UpdateChecker {
 
-    // Reads from the text file in the root of the GitHub repo
-    private static final String REMOTE_URL = "https://raw.githubusercontent.com/axperty/farmingexperiencecore/main/UPDATE";
+    // Reads from the json file in the root of the GitHub repo
+    private static final String REMOTE_URL = "https://raw.githubusercontent.com/axperty/farmingexperiencecore/master/update.json";
+    private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
     
     @SubscribeEvent
     public static void onPlayerJoin(PlayerEvent.PlayerLoggedInEvent event) {
@@ -41,13 +46,19 @@ public class UpdateChecker {
                     configDir.mkdirs();
                 }
 
-                File localUpdateFile = new File(configDir, "update.txt");
-                String localVersion = "00/00/00"; // default version
+                File localUpdateFile = new File(configDir, "update.json");
+                String localVersion = "00.00.00"; // default version
 
                 if (!localUpdateFile.exists()) {
-                    Files.writeString(localUpdateFile.toPath(), localVersion);
+                    JsonObject defaultJson = new JsonObject();
+                    defaultJson.addProperty("version", localVersion);
+                    Files.writeString(localUpdateFile.toPath(), GSON.toJson(defaultJson));
                 } else {
-                    localVersion = Files.readString(localUpdateFile.toPath()).trim();
+                    String jsonString = Files.readString(localUpdateFile.toPath());
+                    JsonObject json = JsonParser.parseString(jsonString).getAsJsonObject();
+                    if (json.has("version")) {
+                        localVersion = json.get("version").getAsString().trim();
+                    }
                 }
 
                 // Fetch remote version
@@ -63,11 +74,18 @@ public class UpdateChecker {
                 HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
                 
                 if (response.statusCode() == 200) {
-                    String remoteVersion = response.body().trim();
-                    
-                    // Simple string comparison works well for YY/MM/DD or YYYY-MM-DD
-                    if (!remoteVersion.isEmpty() && remoteVersion.compareTo(localVersion) > 0) {
-                        sendUpdateMessage(player, remoteVersion);
+                    JsonObject remoteJson = JsonParser.parseString(response.body()).getAsJsonObject();
+                    if (remoteJson.has("version")) {
+                        String remoteVersion = remoteJson.get("version").getAsString().trim();
+                        
+                        // Make sure to always update the local file with the remote version when a change is detected. 
+                        if (!remoteVersion.isEmpty() && remoteVersion.compareTo(localVersion) > 0) {
+                            sendUpdateMessage(player, remoteVersion);
+                            
+                            JsonObject newLocalJson = new JsonObject();
+                            newLocalJson.addProperty("version", remoteVersion);
+                            Files.writeString(localUpdateFile.toPath(), GSON.toJson(newLocalJson));
+                        }
                     }
                 }
             } catch (Exception e) {
@@ -80,18 +98,10 @@ public class UpdateChecker {
         thread.start();
     }
     
+    // Send a message to the player with the update link.
     private static void sendUpdateMessage(ServerPlayer player, String version) {
-        // A single-line, non-intrusive message
-        MutableComponent message = Component.literal("Modpack Update Available: " + version + " ")
-                .withStyle(ChatFormatting.GREEN)
-                .append(Component.literal("[Update via Launcher]")
-                    .withStyle(style -> style
-                        .withColor(ChatFormatting.GOLD)
-                        .withUnderlined(true)
-                        .withClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, "https://modrinth.com/modpack/farming-experience"))
-                        .withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, Component.literal("Open Modrinth to update")))
-                    )
-                );
+        MutableComponent message = Component.literal("New Farming Experience Update Available! " + version + " ")
+                .withStyle(ChatFormatting.GREEN);
 
         player.sendSystemMessage(message);
     }
