@@ -49,6 +49,7 @@ public class ModConfig {
     public static boolean enableKeepInventoryForced = true;
     public static boolean enableMinecartAnywhere = true;
     public static boolean enableTntThrowing = true;
+    public static boolean enableCauldronWashing = true;
 
     public static void init() {
         File configDir = new File(FMLPaths.CONFIGDIR.get().toFile(), "farmingexperiencecore");
@@ -104,6 +105,7 @@ public class ModConfig {
                         case "enableKeepInventoryForced": enableKeepInventoryForced = value; break;
                         case "enableMinecartAnywhere": enableMinecartAnywhere = value; break;
                         case "enableTntThrowing": enableTntThrowing = value; break;
+                        case "enableCauldronWashing": enableCauldronWashing = value; break;
                     }
                 }
             }
@@ -156,6 +158,7 @@ public class ModConfig {
             writeProperty(writer, "Keep Inventory is permanently forced to true upon world start. Default: true", "enableKeepInventoryForced", enableKeepInventoryForced);
             writeProperty(writer, "Minecarts can be placed on any block, not just rails. Default: true", "enableMinecartAnywhere", enableMinecartAnywhere);
             writeProperty(writer, "Crouching and right-clicking TNT while holding flint & steel throws it. Default: true", "enableTntThrowing", enableTntThrowing);
+            writeProperty(writer, "Items crafted with dyes can be placed in water cauldrons to wash them back to their base color. Default: true", "enableCauldronWashing", enableCauldronWashing);
         } catch (Exception e) {
             LOGGER.error("Failed to save Farming Experience config!", e);
         }

@@ -4,8 +4,6 @@
 
 ## ✨ What's New:
 
-Some features in this new version have been inspired from the [Matcha Flavoured](https://modrinth.com/datapack/matcha-flavoured) datapack by [klei_wright](https://modrinth.com/user/klei_wright).
-
 - The player will not lose their inventory items on death, instead, they will lose hearts that can be recovered by eating golden apples.
 - Phantoms will not spawn anymore.
 - Zombies are scared of any light sources and will run away from them.
@@ -18,9 +16,13 @@ Some features in this new version have been inspired from the [Matcha Flavoured]
 - TNT can be thrown when the player has flint and steel and TNT blocks on their hands.
 - Minecarts can be placed without using rails.
 - Multijump, dash, and smash enchantments.
+- Items crafted with dyes can be placed in water cauldrons to wash them back to their base color.
 - Tools and weapons can be always repaired.
 - Days and nights are longer.
 - Configuration file and configuration screen to edit whatever the player wants with support for Cloth Config API.
+
+Some features in this new version have been inspired from the [Matcha Flavoured](https://modrinth.com/datapack/matcha-flavoured) datapack by [klei_wright](https://modrinth.com/user/klei_wright) and cauldron functionality was taken from the 
+[Adding Features to Minecraft That Just Make Sense](https://www.youtube.com/watch?v=-5EVjgQy1WM) video by [Nekoma](https://www.youtube.com/@Nekoma7).
 
 ## 🛠️ Minor Changes:
 

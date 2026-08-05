@@ -148,6 +148,11 @@ public class ClothConfigScreen {
                 .setTooltip(Component.literal("Crouching and right-clicking TNT while holding flint & steel throws it."))
                 .setSaveConsumer(newValue -> ModConfig.enableTntThrowing = newValue)
                 .build());
+        miscellaneous.addEntry(entryBuilder.startBooleanToggle(Component.literal("Cauldron Washing"), ModConfig.enableCauldronWashing)
+                .setDefaultValue(true)
+                .setTooltip(Component.literal("Items crafted with dyes can be placed in water cauldrons to wash them back to their base color."))
+                .setSaveConsumer(newValue -> ModConfig.enableCauldronWashing = newValue)
+                .build());
 
         return builder.build();
     }

@@ -23,6 +23,7 @@ Farming Experience Core is a mod exclusively for the [Farming Experience](https:
 - TNT can be thrown when the player has flint and steel and TNT blocks on their hands.
 - Minecarts can be placed without using rails.
 - Multijump, dash, and smash enchantments.
+- Items crafted with dyes can be placed in water cauldrons to wash them back to their base color.
 - Tools and weapons can be always repaired.
 - Days and nights are longer.
 - Changes the panorama background.
@@ -33,4 +34,11 @@ Farming Experience Core is a mod exclusively for the [Farming Experience](https:
 - Endermen drop significantly less XP to discourage enderman XP farms.
 - Configuration file and configuration screen to edit whatever the player wants with support for Cloth Config API.
 
-Some functionality was taken from the [Matcha Flavoured](https://modrinth.com/datapack/matcha-flavoured) datapack by [klei_wright](https://modrinth.com/user/klei_wright) and modified to work with Farming Experience.
+### Special Thanks
+
+Some functionality added to this mod was inspired from these great creators:
+
+- [Matcha Flavoured](https://modrinth.com/datapack/matcha-flavoured) datapack by [klei_wright](https://modrinth.com/user/klei_wright).
+  - Player loses a heart when they die, and they can get it back by eating a golden apple.
+- [Adding Features to Minecraft That Just Make Sense](https://www.youtube.com/watch?v=-5EVjgQy1WM) video by [Nekoma](https://www.youtube.com/@Nekoma7).
+  - Expanded cauldron functionality, allowing the player to wash wool, terracotta, stained-glass, concrete, concrete powder, and candles.
