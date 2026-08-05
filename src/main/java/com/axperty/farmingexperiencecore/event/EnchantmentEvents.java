@@ -2,6 +2,7 @@ package com.axperty.farmingexperiencecore.event;
 
 import com.axperty.farmingexperiencecore.FarmingExperienceCore;
 import com.axperty.farmingexperiencecore.attachment.ModAttachments;
+import com.axperty.farmingexperiencecore.config.ModConfig;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
@@ -33,7 +34,7 @@ public class EnchantmentEvents {
         if (event.getEntity() instanceof Player player && !player.level().isClientSide()) {
             if (event.getDistance() > 3.0f) {
                 ItemStack mainHand = player.getItemInHand(InteractionHand.MAIN_HAND);
-                if (mainHand.is(Items.MACE)) {
+                if (mainHand.is(Items.MACE) && ModConfig.enableSmash) {
                     java.util.Optional<Holder.Reference<Enchantment>> smashHolder = player.level().registryAccess().registryOrThrow(Registries.ENCHANTMENT).getHolder(SMASH_KEY);
                     if (smashHolder.isPresent()) {
                         int smashLevel = EnchantmentHelper.getItemEnchantmentLevel(smashHolder.get(), mainHand);

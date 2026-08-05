@@ -1,6 +1,7 @@
 package com.axperty.farmingexperiencecore.event;
 
 import com.axperty.farmingexperiencecore.FarmingExperienceCore;
+import com.axperty.farmingexperiencecore.config.ModConfig;
 import com.axperty.farmingexperiencecore.entity.ZombieAvoidLightGoal;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
@@ -11,7 +12,6 @@ import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.AvoidEntityGoal;
 import net.minecraft.world.entity.animal.Cat;
-import net.minecraft.world.entity.animal.IronGolem;
 import net.minecraft.world.entity.monster.CaveSpider;
 import net.minecraft.world.entity.monster.Creeper;
 import net.minecraft.world.entity.monster.Phantom;
@@ -29,25 +29,29 @@ public class MobBehaviorEvents {
 
     @SubscribeEvent
     public static void onEntityJoin(EntityJoinLevelEvent event) {
-        if (event.getEntity() instanceof Phantom) {
+        if (event.getEntity() instanceof Phantom && ModConfig.enableDisablePhantoms) {
             event.setCanceled(true);
             return;
         }
 
         if (!event.getLevel().isClientSide() && event.getEntity() instanceof Mob mob) {
-            TagKey<EntityType<?>> mundaneTag = TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(FarmingExperienceCore.MODID, "mundane_hostiles"));
-            if (mob.getType().is(mundaneTag)) {
-                mob.setDropChance(EquipmentSlot.HEAD, 0.0f);
-                mob.setDropChance(EquipmentSlot.CHEST, 0.0f);
-                mob.setDropChance(EquipmentSlot.LEGS, 0.0f);
-                mob.setDropChance(EquipmentSlot.FEET, 0.0f);
-                mob.setDropChance(EquipmentSlot.MAINHAND, 0.0f);
+            if (ModConfig.enableDisableHostileArmorDrops) {
+                TagKey<EntityType<?>> mundaneTag = TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(FarmingExperienceCore.MODID, "mundane_hostiles"));
+                if (mob.getType().is(mundaneTag)) {
+                    mob.setDropChance(EquipmentSlot.HEAD, 0.0f);
+                    mob.setDropChance(EquipmentSlot.CHEST, 0.0f);
+                    mob.setDropChance(EquipmentSlot.LEGS, 0.0f);
+                    mob.setDropChance(EquipmentSlot.FEET, 0.0f);
+                    mob.setDropChance(EquipmentSlot.MAINHAND, 0.0f);
+                }
             }
         }
 
         if (event.getEntity() instanceof Zombie zombie) {
-            zombie.goalSelector.addGoal(0, new ZombieAvoidLightGoal(zombie, 1.2));
-            if (!event.getLevel().isClientSide()) {
+            if (ModConfig.enableZombieLightAvoidance) {
+                zombie.goalSelector.addGoal(0, new ZombieAvoidLightGoal(zombie, 1.2));
+            }
+            if (!event.getLevel().isClientSide() && ModConfig.enableZombieNerf) {
                 var speedAttr = zombie.getAttribute(Attributes.MOVEMENT_SPEED);
                 if (speedAttr != null) speedAttr.setBaseValue(0.3105);
                 
@@ -63,7 +67,7 @@ public class MobBehaviorEvents {
         }
 
         if (event.getEntity() instanceof Husk husk) {
-            if (!event.getLevel().isClientSide()) {
+            if (!event.getLevel().isClientSide() && ModConfig.enableHuskBuff) {
                 var speedAttr = husk.getAttribute(Attributes.MOVEMENT_SPEED);
                 if (speedAttr != null) speedAttr.setBaseValue(0.28);
                 var dmgAttr = husk.getAttribute(Attributes.ATTACK_DAMAGE);
@@ -72,7 +76,7 @@ public class MobBehaviorEvents {
         }
 
         if (event.getEntity() instanceof Skeleton skeleton) {
-            if (!event.getLevel().isClientSide()) {
+            if (!event.getLevel().isClientSide() && ModConfig.enableSkeletonNerf) {
                 var hpAttr = skeleton.getAttribute(Attributes.MAX_HEALTH);
                 if (hpAttr != null) {
                     hpAttr.setBaseValue(10.0);
@@ -82,7 +86,7 @@ public class MobBehaviorEvents {
         }
 
         if (event.getEntity() instanceof Creeper creeper) {
-            if (!event.getLevel().isClientSide()) {
+            if (!event.getLevel().isClientSide() && ModConfig.enableCreeperNerf) {
                 var hpAttr = creeper.getAttribute(Attributes.MAX_HEALTH);
                 if (hpAttr != null) {
                     hpAttr.setBaseValue(10.0);
@@ -92,7 +96,7 @@ public class MobBehaviorEvents {
         }
 
         if (event.getEntity() instanceof CaveSpider caveSpider) {
-            if (!event.getLevel().isClientSide()) {
+            if (!event.getLevel().isClientSide() && ModConfig.enableCaveSpiderNerf) {
                 var hpAttr = caveSpider.getAttribute(Attributes.MAX_HEALTH);
                 if (hpAttr != null) {
                     hpAttr.setBaseValue(4.0);
@@ -104,7 +108,9 @@ public class MobBehaviorEvents {
         }
 
         if (event.getEntity() instanceof Cat cat) {
-            cat.goalSelector.removeAllGoals(goal -> goal instanceof AvoidEntityGoal);
+            if (ModConfig.enableCatTamingBuff) {
+                cat.goalSelector.removeAllGoals(goal -> goal instanceof AvoidEntityGoal);
+            }
         }
     }
 }

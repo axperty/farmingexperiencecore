@@ -6,7 +6,7 @@ import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.ResourceLocation;
 
-// Makes the server know when the client wants to multi-jump.
+// Makes the server know when the client wants to multijump.
 
 public record MultiJumpPayload() implements CustomPacketPayload {
     public static final CustomPacketPayload.Type<MultiJumpPayload> TYPE = new CustomPacketPayload.Type<>(ResourceLocation.fromNamespaceAndPath(FarmingExperienceCore.MODID, "multi_jump"));

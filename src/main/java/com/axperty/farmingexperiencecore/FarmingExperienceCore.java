@@ -1,13 +1,19 @@
 package com.axperty.farmingexperiencecore;
 
 import com.axperty.farmingexperiencecore.attachment.ModAttachments;
+import com.axperty.farmingexperiencecore.client.gui.ClothConfigScreen;
+import com.axperty.farmingexperiencecore.config.ModConfig;
 import com.mojang.logging.LogUtils;
 import net.neoforged.bus.api.IEventBus;
+import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.Mod;
+import net.neoforged.fml.loading.FMLEnvironment;
 import net.neoforged.fml.loading.FMLPaths;
 
 import java.io.File;
 import java.io.FileReader;
+
+import net.neoforged.neoforge.client.gui.IConfigScreenFactory;
 import org.slf4j.Logger;
 
 import com.google.gson.Gson;
@@ -21,9 +27,16 @@ public class FarmingExperienceCore {
     private static final Logger LOGGER = LogUtils.getLogger();
     public static boolean isModpackInstalled = true;
 
-    public FarmingExperienceCore(IEventBus modEventBus) {
+    public FarmingExperienceCore(IEventBus modEventBus, ModContainer modContainer) {
         checkModpackInstallation();
         ModAttachments.ATTACHMENT_TYPES.register(modEventBus);
+        ModConfig.init();
+
+        if (FMLEnvironment.dist.isClient()) {
+            modContainer.registerExtensionPoint(IConfigScreenFactory.class,
+                    (container, screen) -> ClothConfigScreen.build(screen));
+        }
+
         LOGGER.info("Farming Experience Core loaded");
     }
 

@@ -1,6 +1,7 @@
 package com.axperty.farmingexperiencecore.event;
 
 import com.axperty.farmingexperiencecore.FarmingExperienceCore;
+import com.axperty.farmingexperiencecore.config.ModConfig;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
@@ -33,7 +34,9 @@ public class MiscInteractionEvents {
 
     @SubscribeEvent
     public static void onServerStarted(ServerStartedEvent event) {
-        event.getServer().getGameRules().getRule(GameRules.RULE_KEEPINVENTORY).set(true, event.getServer());
+        if (ModConfig.enableKeepInventoryForced) {
+            event.getServer().getGameRules().getRule(GameRules.RULE_KEEPINVENTORY).set(true, event.getServer());
+        }
     }
 
     @SubscribeEvent
@@ -42,7 +45,7 @@ public class MiscInteractionEvents {
         Item item = event.getItemStack().getItem();
         Level level = event.getLevel();
         
-        if (item instanceof MinecartItem) {
+        if (ModConfig.enableMinecartAnywhere && item instanceof MinecartItem) {
             BlockPos pos = event.getPos();
             if (!level.getBlockState(pos).is(BlockTags.RAILS)) {
                 if (!level.isClientSide()) {
@@ -70,7 +73,7 @@ public class MiscInteractionEvents {
             }
         }
         
-        if (player.isCrouching() && item == Items.TNT) {
+        if (ModConfig.enableTntThrowing && player.isCrouching() && item == Items.TNT) {
             InteractionHand otherHandType = event.getHand() == InteractionHand.MAIN_HAND ? InteractionHand.OFF_HAND : InteractionHand.MAIN_HAND;
             ItemStack otherHandStack = player.getItemInHand(otherHandType);
             
@@ -87,7 +90,7 @@ public class MiscInteractionEvents {
     @SubscribeEvent
     public static void onRightClickItem(PlayerInteractEvent.RightClickItem event) {
         Player player = event.getEntity();
-        if (player.isCrouching() && event.getItemStack().getItem() == Items.TNT) {
+        if (ModConfig.enableTntThrowing && player.isCrouching() && event.getItemStack().getItem() == Items.TNT) {
             InteractionHand otherHandType = event.getHand() == InteractionHand.MAIN_HAND ? InteractionHand.OFF_HAND : InteractionHand.MAIN_HAND;
             ItemStack otherHandStack = player.getItemInHand(otherHandType);
 

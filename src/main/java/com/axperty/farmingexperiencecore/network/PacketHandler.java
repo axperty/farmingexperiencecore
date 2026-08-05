@@ -2,6 +2,7 @@ package com.axperty.farmingexperiencecore.network;
 
 import com.axperty.farmingexperiencecore.FarmingExperienceCore;
 import com.axperty.farmingexperiencecore.attachment.ModAttachments;
+import com.axperty.farmingexperiencecore.config.ModConfig;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
@@ -55,7 +56,7 @@ public class PacketHandler {
         if (dashHolder.isEmpty()) return;
 
         int dashLevel = EnchantmentHelper.getItemEnchantmentLevel(dashHolder.get(), boots);
-        if (dashLevel > 0) {
+        if (dashLevel > 0 && ModConfig.enableDash) {
             int cooldown = player.getData(ModAttachments.DASH_COOLDOWN);
             if (cooldown <= 0) {
                 player.causeFoodExhaustion(0.5f);
@@ -75,7 +76,7 @@ public class PacketHandler {
         if (jumpHolder.isEmpty()) return;
 
         int jumpLevel = EnchantmentHelper.getItemEnchantmentLevel(jumpHolder.get(), boots);
-        if (jumpLevel > 0) {
+        if (jumpLevel > 0 && ModConfig.enableMultiJump) {
             int jumps = player.getData(ModAttachments.JUMP_COUNT);
             if (jumps < jumpLevel) {
                 player.setData(ModAttachments.JUMP_COUNT, jumps + 1);

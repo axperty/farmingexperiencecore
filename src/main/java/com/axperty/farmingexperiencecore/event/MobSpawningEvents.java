@@ -1,6 +1,7 @@
 package com.axperty.farmingexperiencecore.event;
 
 import com.axperty.farmingexperiencecore.FarmingExperienceCore;
+import com.axperty.farmingexperiencecore.config.ModConfig;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
@@ -25,14 +26,14 @@ public class MobSpawningEvents {
                 boolean canSeeSky = level.getLevel().canSeeSky(entity.blockPosition());
                 
                 TagKey<EntityType<?>> caveMobsTag = TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(FarmingExperienceCore.MODID, "cave_mobs"));
-                if (entity.getType().is(caveMobsTag)) {
+                if (ModConfig.enableCaveMobRestrictions && entity.getType().is(caveMobsTag)) {
                     if (canSeeSky || entity.getBlockY() >= 59) {
                         event.setSpawnCancelled(true);
                     }
                 }
                 
                 TagKey<EntityType<?>> surfaceMobsTag = TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(FarmingExperienceCore.MODID, "surface_mobs"));
-                if (entity.getType().is(surfaceMobsTag)) {
+                if (ModConfig.enableSurfaceMobRestrictions && entity.getType().is(surfaceMobsTag)) {
                     if (!canSeeSky) {
                         event.setSpawnCancelled(true);
                     }

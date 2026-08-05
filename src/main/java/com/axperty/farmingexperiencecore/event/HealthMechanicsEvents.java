@@ -1,6 +1,7 @@
 package com.axperty.farmingexperiencecore.event;
 
 import com.axperty.farmingexperiencecore.FarmingExperienceCore;
+import com.axperty.farmingexperiencecore.config.ModConfig;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Items;
@@ -16,7 +17,7 @@ public class HealthMechanicsEvents {
 
     @SubscribeEvent
     public static void onPlayerClone(PlayerEvent.Clone event) {
-        if (event.isWasDeath()) {
+        if (event.isWasDeath() && ModConfig.enableDeathPenalty) {
             Player player = event.getEntity();
             Player original = event.getOriginal();
 
@@ -35,7 +36,7 @@ public class HealthMechanicsEvents {
 
     @SubscribeEvent
     public static void onItemEaten(LivingEntityUseItemEvent.Finish event) {
-        if (event.getEntity() instanceof Player player) {
+        if (event.getEntity() instanceof Player player && ModConfig.enableGoldenAppleRestore) {
             var item = event.getItem().getItem();
             if (item == Items.GOLDEN_APPLE || item == Items.ENCHANTED_GOLDEN_APPLE) {
                 var attr = player.getAttribute(Attributes.MAX_HEALTH);
