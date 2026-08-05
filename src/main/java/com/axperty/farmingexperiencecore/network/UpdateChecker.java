@@ -14,7 +14,6 @@ import net.neoforged.fml.loading.FMLPaths;
 import net.neoforged.neoforge.event.entity.player.PlayerEvent;
 
 import java.io.File;
-import java.io.IOException;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
@@ -25,7 +24,8 @@ import java.time.Duration;
 @EventBusSubscriber(modid = FarmingExperienceCore.MODID)
 public class UpdateChecker {
 
-    private static final String REMOTE_URL = "https://raw.githubusercontent.com/axperty/farmingexperiencecore/main/modpack/UPDATE";
+    // Reads from the text file in the root of the GitHub repo
+    private static final String REMOTE_URL = "https://raw.githubusercontent.com/axperty/farmingexperiencecore/main/UPDATE";
     
     @SubscribeEvent
     public static void onPlayerJoin(PlayerEvent.PlayerLoggedInEvent event) {
@@ -35,14 +35,22 @@ public class UpdateChecker {
 
         Thread thread = new Thread(() -> {
             try {
-                File gameDir = FMLPaths.GAMEDIR.get().toFile();
-                File localUpdateFile = new File(gameDir, "modpack/UPDATE");
-                
-                String localVersion = "";
-                if (localUpdateFile.exists()) {
+                // Setup local config file
+                File configDir = new File(FMLPaths.CONFIGDIR.get().toFile(), "farmingexperiencecore");
+                if (!configDir.exists()) {
+                    configDir.mkdirs();
+                }
+
+                File localUpdateFile = new File(configDir, "update.txt");
+                String localVersion = "00/00/00"; // default version
+
+                if (!localUpdateFile.exists()) {
+                    Files.writeString(localUpdateFile.toPath(), localVersion);
+                } else {
                     localVersion = Files.readString(localUpdateFile.toPath()).trim();
                 }
 
+                // Fetch remote version
                 HttpClient client = HttpClient.newBuilder()
                         .connectTimeout(Duration.ofSeconds(10))
                         .build();
@@ -56,31 +64,35 @@ public class UpdateChecker {
                 
                 if (response.statusCode() == 200) {
                     String remoteVersion = response.body().trim();
-
-                    if (!remoteVersion.isEmpty() && !remoteVersion.equals(localVersion)) {
-                        sendUpdateMessage(player);
+                    
+                    // Simple string comparison works well for YY/MM/DD or YYYY-MM-DD
+                    if (!remoteVersion.isEmpty() && remoteVersion.compareTo(localVersion) > 0) {
+                        sendUpdateMessage(player, remoteVersion);
                     }
                 }
-            } catch (IOException | InterruptedException e) {
+            } catch (Exception e) {
                 LogUtils.getLogger().warn("Failed to check for Farming Experience updates: {}", e.getMessage());
             }
         });
         
-        thread.setName("Farming Experience Update Checker");
+        thread.setName("FarmingExperience Update Checker");
         thread.setDaemon(true);
         thread.start();
     }
     
-    private static void sendUpdateMessage(ServerPlayer player) {
-        MutableComponent title = Component.literal("New Farming Experience Update Available! ")
-                .withStyle(ChatFormatting.GOLD, ChatFormatting.BOLD);
-                
-        MutableComponent instructions = Component.literal("Please update the instance inside your launcher.")
-                .withStyle(ChatFormatting.YELLOW);
+    private static void sendUpdateMessage(ServerPlayer player, String version) {
+        // A single-line, non-intrusive message
+        MutableComponent message = Component.literal("Modpack Update Available: " + version + " ")
+                .withStyle(ChatFormatting.GREEN)
+                .append(Component.literal("[Update via Launcher]")
+                    .withStyle(style -> style
+                        .withColor(ChatFormatting.GOLD)
+                        .withUnderlined(true)
+                        .withClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, "https://modrinth.com/modpack/farming-experience"))
+                        .withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, Component.literal("Open Modrinth to update")))
+                    )
+                );
 
-        player.sendSystemMessage(Component.literal(""));
-        player.sendSystemMessage(title);
-        player.sendSystemMessage(instructions);
-        player.sendSystemMessage(Component.literal(""));
+        player.sendSystemMessage(message);
     }
 }
