@@ -63,6 +63,14 @@ public class FarmingExperienceCore {
                 }
             }
         }
+        
+        if (!found) {
+            String path = gameDir.getAbsolutePath().toLowerCase();
+            if (path.contains("farming experience") || path.contains("farmingexperience")) {
+                found = true;
+            }
+        }
+        
         isModpackInstalled = found;
     }
 }
